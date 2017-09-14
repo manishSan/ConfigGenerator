@@ -10,14 +10,25 @@ import Foundation
 
 let appName = (CommandLine.arguments.first! as NSString).lastPathComponent
 let parser = OptionsParser(appName: appName)
-let fileGenerator = FileGenerator(optionsParser: parser)
+
+guard let hints = parser.hints() else {
+    fatalError("Missing root entries from root file")
+}
+
+let fileGenerator = FileGenerator(input: FileGeneratorInput(appName: parser.appName,
+                                                            inputDictionary: parser.plistDictionary,
+                                                            hintsDictionary: hints,
+                                                            outputClass: parser.outputClassName),
+                                  options: parser)
 
 if parser.isObjC {
-  let template = ObjectiveCTemplate(optionsParser: parser)
+  let template = ObjectiveCTemplate(outClassDir: parser.outputClassDirectory,
+                                    outClassName: parser.outputClassName)
   fileGenerator.generateHeaderFile(withTemplate: template)
   fileGenerator.generateImplementationFile(withTemplate: template)
 } else {
-  let template = SwiftTemplate(optionsParser: parser)
+    let template = SwiftTemplate(outClassDir: parser.outputClassDirectory,
+                                 outClassName: parser.outputClassName)
   fileGenerator.generateImplementationFile(withTemplate: template)
 }
 

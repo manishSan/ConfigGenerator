@@ -4,3 +4,6 @@ retryCount : Int
 adUnitPrefix : String
 analyticsKey : String
 environment : Environment
+Dependency : Dictionary
+Dependency.baseURL : URL
+Dependency.key : String

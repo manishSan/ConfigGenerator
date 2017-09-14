@@ -10,6 +10,7 @@
 		2E378F961D5B811C00E9F524 /* OptionsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E378F951D5B811C00E9F524 /* OptionsParser.swift */; };
 		2E4A8F311D5C77AB0025C677 /* FileTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8F301D5C77AB0025C677 /* FileTemplates.swift */; };
 		2E4A8F331D5CB7D60025C677 /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8F321D5CB7D60025C677 /* FileGenerator.swift */; };
+		389AA19D1F6ADFE5009CD1C7 /* FileGeneratorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389AA19C1F6ADFE5009CD1C7 /* FileGeneratorInput.swift */; };
 		91ED18E61E02A48F00475042 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91084DEB1E02A0A9004E353B /* CommandLineKit.swift */; };
 		91ED18E71E02A49200475042 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91084DED1E02A0A9004E353B /* Option.swift */; };
 		91ED18E81E02A49500475042 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91084DEE1E02A0A9004E353B /* StringExtensions.swift */; };
@@ -32,6 +33,7 @@
 		2E378F951D5B811C00E9F524 /* OptionsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsParser.swift; sourceTree = "<group>"; };
 		2E4A8F301D5C77AB0025C677 /* FileTemplates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTemplates.swift; sourceTree = "<group>"; };
 		2E4A8F321D5CB7D60025C677 /* FileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
+		389AA19C1F6ADFE5009CD1C7 /* FileGeneratorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGeneratorInput.swift; sourceTree = "<group>"; };
 		91084DEB1E02A0A9004E353B /* CommandLineKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineKit.swift; sourceTree = "<group>"; };
 		91084DEC1E02A0A9004E353B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91084DED1E02A0A9004E353B /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				91084DEA1E02A0A9004E353B /* CommandLineKit */,
 				EAD7A2A11BBABE83006A3921 /* main.swift */,
+				389AA19C1F6ADFE5009CD1C7 /* FileGeneratorInput.swift */,
 				2E378F951D5B811C00E9F524 /* OptionsParser.swift */,
 				2E4A8F301D5C77AB0025C677 /* FileTemplates.swift */,
 				2E4A8F321D5CB7D60025C677 /* FileGenerator.swift */,
@@ -149,6 +152,7 @@
 			files = (
 				91ED18E81E02A49500475042 /* StringExtensions.swift in Sources */,
 				91ED18E71E02A49200475042 /* Option.swift in Sources */,
+				389AA19D1F6ADFE5009CD1C7 /* FileGeneratorInput.swift in Sources */,
 				91ED18E61E02A48F00475042 /* CommandLineKit.swift in Sources */,
 				EAD7A2A21BBABE83006A3921 /* main.swift in Sources */,
 				2E4A8F331D5CB7D60025C677 /* FileGenerator.swift in Sources */,
