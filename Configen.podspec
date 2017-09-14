@@ -37,7 +37,7 @@ The configen tool is used to auto-generate configuration code from a property li
 
   #s.ios.deployment_target = '9.0'
 
-  s.source_files = 'Configen/*.swift', 'Configen/CommandLineKit/*.swift', 'bin/configen'
+  s.source_files = { http: "https://github.com/manishb24/ConfigGenerator/releases/download/#{s.version}/configen-#{s.version}.zip" }
   s.requires_arc = true
   s.framework  = 'Foundation'
 end
