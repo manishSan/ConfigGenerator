@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Configen'
-  s.version          = ‘1.1.1’
+  s.version          = '1.1.1'
   s.summary          = 'A command line tool to auto-generate configuration file code, for use in Xcode projects.'
 
 # This description is used to generate tags and improve search results.
@@ -35,7 +35,7 @@ The configen tool is used to auto-generate configuration code from a property li
   s.source           = { :git => 'https://github.com/manishb24/ConfigGenerator.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  #s.ios.deployment_target = '9.0'
 
   s.source_files = 'Configen/*', 'Configen/CommandLineKit/*'
   s.requires_arc = true
