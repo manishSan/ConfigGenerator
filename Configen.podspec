@@ -32,12 +32,8 @@ The configen tool is used to auto-generate configuration code from a property li
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'manishb24' => 'Manish.Sanwal@gmail.com' }
-  s.source           = { :git => 'https://github.com/manishb24/ConfigGenerator.git', :tag => s.version.to_s }
+
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  #s.ios.deployment_target = '9.0'
-
-  s.source_files = { http: "https://github.com/manishb24/ConfigGenerator/releases/download/#{s.version}/configen-#{s.version}.zip" }
-  s.requires_arc = true
-  s.framework  = 'Foundation'
+  s.source = { http: "https://github.com/manishb24/ConfigGenerator/releases/download/#{s.version}/configen-#{s.version}.zip" }
+  s.preserve_paths = '*'
 end
