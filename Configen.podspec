@@ -23,10 +23,10 @@ The configen tool is used to auto-generate configuration code from a property li
                        DESC
 
 
-  s.ios.deployment_target = "9.0"
-  # s.osx.deployment_target = "10.10"
-  s.watchos.deployment_target = "2.0"
-  s.tvos.deployment_target = "9.0"
+  # s.ios.deployment_target = "9.0"
+  s.osx.deployment_target = '10.10'
+  # s.watchos.deployment_target = "2.0"
+  # s.tvos.deployment_target = "9.0"
 
   s.homepage         = 'https://github.com/manishb24/ConfigGenerator'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
