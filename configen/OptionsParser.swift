@@ -59,7 +59,7 @@ class OptionsParser {
     /// if the key passes in nil then returns root dictionary
     ///
     /// - Parameter key: Dictionary<String, String>
-    func hints(key: String? = nil) -> Dictionary<String, String>? {
+    func hints(_ key: String? = nil) -> Dictionary<String, String>? {
         if let className = key {
             return hintsDictionary[className]
         } else {
@@ -69,7 +69,7 @@ class OptionsParser {
 
     /// currently we support only 1 leve of nesting
 
-    private lazy var hintsDictionary: Dictionary<String, Dictionary<String, String>> = { [unowned self] in
+    fileprivate lazy var hintsDictionary: Dictionary<String, Dictionary<String, String>> = { [unowned self] in
         guard let hintsString = try? String(contentsOfFile: self.inputHintsFilePath, encoding: String.Encoding.utf8) else {
             fatalError("No data at path: \(self.inputHintsFilePath)")
         }

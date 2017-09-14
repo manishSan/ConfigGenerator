@@ -21,12 +21,12 @@
 
         var headerBodyContent = ""
         for (variableName, type) in input.hintsDictionary {
-            let headerLine = methodDeclarationForVariableName(variableName: variableName, type: type, template: template)
+            let headerLine = methodDeclarationForVariableName(variableName, type: type, template: template)
             headerBodyContent.append("\n" + headerLine + ";" + "\n")
         }
 
         var headerBody = template.headerBody
-        headerBody.replace(token: template.bodyToken, withString: headerBodyContent)
+        headerBody.replace(template.bodyToken, withString: headerBodyContent)
 
         do {
             let headerOutputString = autoGenerationComment + template.headerImportStatements + headerBody
@@ -42,12 +42,12 @@
     func generateImplementationFile(withTemplate template: ImplementationTemplate) {
         var implementationBodyContent = ""
         for (variableName, type) in input.hintsDictionary {
-            let implementationLine = methodImplementationForVariableName(variableName: variableName, type: type, template: template)
+            let implementationLine = methodImplementationForVariableName(variableName, type: type, template: template)
             implementationBodyContent.append("\n" + implementationLine + "\n")
         }
 
         var implementationBody = template.implementationBody
-        implementationBody.replace(token: template.bodyToken, withString: implementationBodyContent)
+        implementationBody.replace(template.bodyToken, withString: implementationBodyContent)
 
         do {
             let implementationOutputString = autoGenerationComment + template.implementationImportStatements + implementationBody
@@ -60,7 +60,7 @@
     }
 
 
-    func methodDeclarationForVariableName(variableName: String, type: String, template: HeaderTemplate) -> String {
+    func methodDeclarationForVariableName(_ variableName: String, type: String, template: HeaderTemplate) -> String {
         var line = ""
         var variable = variableName
 
@@ -83,7 +83,7 @@
         case ("Dictionary"):
             /// generate a new custom class here
             if let dict = input.inputDictionary[variableName] as? Dictionary<String, AnyObject>,
-                let hints = options.hints(key: variableName) {
+                let hints = options.hints(variableName) {
                 let a = FileGeneratorInput(appName: input.appName,
                                            inputDictionary: dict,
                                            hintsDictionary: hints,
@@ -98,22 +98,22 @@
 
                 line = template.customClassDeclaration
                 variable = variableName.lowercased()
-                line.replace(token: template.customTypeToken, withString: variableName)
+                line.replace(template.customTypeToken, withString: variableName)
 
                 variable = variableName.lowercased()
             }
         default:
             line = template.customDeclaration
-            line.replace(token: template.customTypeToken, withString: type)
+            line.replace(template.customTypeToken, withString: type)
         }
 
-        line.replace(token: template.variableNameToken, withString: variable)
+        line.replace(template.variableNameToken, withString: variable)
 
         return line
     }
 
 
-    func methodImplementationForVariableName(variableName: String, type: String, template: ImplementationTemplate) -> String {
+    func methodImplementationForVariableName(_ variableName: String, type: String, template: ImplementationTemplate) -> String {
 
         guard let value = input.inputDictionary[variableName] else {
             fatalError("No configuration setting for variable name: \(variableName)")
@@ -136,7 +136,7 @@
         case ("Bool"):
             let boolString = value as! Bool ? template.trueString : template.falseString
             line = template.booleanImplementation
-            line.replace(token: template.valueToken, withString: boolString)
+            line.replace(template.valueToken, withString: boolString)
 
         case ("URL"):
             let url = URL(string: "\(value)")!
@@ -148,7 +148,7 @@
         case ("Dictionary"):
             /// create a class with key
             /// pass value as the dictionary to process
-            if let dict = value as? Dictionary<String, AnyObject>, let hints = options.hints(key: variableName) {
+            if let dict = value as? Dictionary<String, AnyObject>, let hints = options.hints(variableName) {
                 let a = FileGeneratorInput(appName: input.appName,
                                            inputDictionary: dict,
                                            hintsDictionary: hints,
@@ -160,7 +160,7 @@
                 generator.generateImplementationFile(withTemplate: innerTemplate)
 
                 line = template.customInstantiation
-                line.replace(token: template.customTypeToken, withString: variableName)
+                line.replace(template.customTypeToken, withString: variableName)
                 variable = variableName.lowercased()
                 addValue = false
             }
@@ -170,12 +170,12 @@
                 fatalError("Value (\(value)) must be a string in order to be used by custom type \(type)")
             }
             line = template.customImplementation
-            line.replace(token: template.customTypeToken, withString: type)
+            line.replace(template.customTypeToken, withString: type)
         }
 
-        line.replace(token: template.variableNameToken, withString: variable)
+        line.replace(template.variableNameToken, withString: variable)
         if addValue {
-            line.replace(token: template.valueToken, withString: "\(value)")
+            line.replace(template.valueToken, withString: "\(value)")
         }
 
         return line
@@ -184,7 +184,7 @@
  }
 
  extension String {
-    mutating func replace(token: String, withString string: String) {
+    mutating func replace(_ token: String, withString string: String) {
         self = replacingOccurrences(of: token, with: string)
     }
 

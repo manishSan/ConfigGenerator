@@ -26,7 +26,7 @@ internal extension String {
   /* Retrieves locale-specified decimal separator from the environment
    * using localeconv(3).
    */
-  private func _localDecimalPoint() -> Character {
+  fileprivate func _localDecimalPoint() -> Character {
     let locale = localeconv()
     if locale != nil {
       if let decimalPoint = locale?.pointee.decimal_point {
@@ -87,7 +87,7 @@ internal extension String {
    *
    * - returns: An array of string components.
    */
-  func split(by: Character, maxSplits: Int = 0) -> [String] {
+  func split(_ by: Character, maxSplits: Int = 0) -> [String] {
     var s = [String]()
     var numSplits = 0
 
@@ -145,7 +145,7 @@ internal extension String {
     var s = ""
     var currentLineWidth = 0
 
-    for word in self.split(by: splitBy) {
+    for word in self.split(splitBy) {
       let wordLength = word.characters.count
 
       if currentLineWidth + wordLength + 1 > width {

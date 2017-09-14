@@ -55,11 +55,11 @@ private struct StderrOutputStream: TextOutputStream {
  * a `ParseError`. You can then call `printUsage()` to output an automatically-generated usage
  * message.
  */
-public class CommandLineKit {
-  private var _arguments: [String]
-  private var _options: [Option] = [Option]()
-  private var _maxFlagDescriptionWidth: Int = 0
-  private var _usedFlags: Set<String> {
+open class CommandLineKit {
+  fileprivate var _arguments: [String]
+  fileprivate var _options: [Option] = [Option]()
+  fileprivate var _maxFlagDescriptionWidth: Int = 0
+  fileprivate var _usedFlags: Set<String> {
     var usedFlags = Set<String>(minimumCapacity: _options.count * 2)
 
     for option in _options {
@@ -93,7 +93,7 @@ public class CommandLineKit {
    * File type is pdf, files are ["~/file1.pdf", "~/file2.pdf"]
    * ```
    */
-  public private(set) var unparsedArguments: [String] = [String]()
+  open fileprivate(set) var unparsedArguments: [String] = [String]()
 
   /**
    * If supplied, this function will be called when printing usage messages.
@@ -120,7 +120,7 @@ public class CommandLineKit {
    * - note: Newlines are not appended to the result of this function. If you don't use
    * `defaultFormat()`, be sure to add them before returning.
    */
-  public var formatOutput: ((String, OutputType) -> String)?
+  open var formatOutput: ((String, OutputType) -> String)?
 
   /**
    * The maximum width of all options' `flagDescription` properties; provided for use by
@@ -128,7 +128,7 @@ public class CommandLineKit {
    *
    * - seealso: `defaultFormat`, `formatOutput`
    */
-  public var maxFlagDescriptionWidth: Int {
+  open var maxFlagDescriptionWidth: Int {
     if _maxFlagDescriptionWidth == 0 {
       _maxFlagDescriptionWidth = _options.map { $0.flagDescription.characters.count }.sorted().first ?? 0
     }
@@ -195,7 +195,7 @@ public class CommandLineKit {
   }
 
   /* Returns all argument values from flagIndex to the next flag or the end of the argument array. */
-  private func _getFlagValues(_ flagIndex: Int, _ attachedArg: String? = nil) -> [String] {
+  fileprivate func _getFlagValues(_ flagIndex: Int, _ attachedArg: String? = nil) -> [String] {
     var args: [String] = [String]()
     var skipFlagChecks = false
 
@@ -227,7 +227,7 @@ public class CommandLineKit {
    *
    * - parameter option: The option to add.
    */
-  public func addOption(_ option: Option) {
+  open func addOption(_ option: Option) {
     let uf = _usedFlags
     for case let flag? in [option.shortFlag, option.longFlag] {
       assert(!uf.contains(flag), "Flag '\(flag)' already in use")
@@ -242,7 +242,7 @@ public class CommandLineKit {
    *
    * - parameter options: An array containing the options to add.
    */
-  public func addOptions(_ options: [Option]) {
+  open func addOptions(_ options: [Option]) {
     for o in options {
       addOption(o)
     }
@@ -253,7 +253,7 @@ public class CommandLineKit {
    *
    * - parameter options: The options to add.
    */
-  public func addOptions(_ options: Option...) {
+  open func addOptions(_ options: Option...) {
     for o in options {
       addOption(o)
     }
@@ -264,7 +264,7 @@ public class CommandLineKit {
    *
    * - parameter options: An array containing the options to set.
    */
-  public func setOptions(_ options: [Option]) {
+  open func setOptions(_ options: [Option]) {
     _options = [Option]()
     addOptions(options)
   }
@@ -274,7 +274,7 @@ public class CommandLineKit {
    *
    * - parameter options: The options to set.
    */
-  public func setOptions(_ options: Option...) {
+  open func setOptions(_ options: Option...) {
     _options = [Option]()
     addOptions(options)
   }
@@ -290,7 +290,7 @@ public class CommandLineKit {
    *     example, a string is supplied for an IntOption)
    *   - `.MissingRequiredOptions` if a required option isn't present
    */
-  public func parse(strict: Bool = false) throws {
+  open func parse(_ strict: Bool = false) throws {
     var strays = _arguments
 
     /* Nuke executable name */
@@ -316,7 +316,7 @@ public class CommandLineKit {
       }
 
       /* Remove attached argument from flag */
-      let splitFlag = flagWithArg.split(by: argumentAttacher, maxSplits: 1)
+      let splitFlag = flagWithArg.split(argumentAttacher, maxSplits: 1)
       let flag = splitFlag[0]
       let attachedArg: String? = splitFlag.count == 2 ? splitFlag[1] : nil
 
@@ -387,7 +387,7 @@ public class CommandLineKit {
    * - returns: The formatted string.
    * - seealso: `formatOutput`
    */
-  public func defaultFormat(s: String, type: OutputType) -> String {
+  open func defaultFormat(_ s: String, type: OutputType) -> String {
     switch type {
     case .about:
       return "\(s)\n"
@@ -409,7 +409,7 @@ public class CommandLineKit {
    *
    * - parameter to: An OutputStreamType to write the error message to.
    */
-  public func printUsage<TargetStream: TextOutputStream>(_ to: inout TargetStream) {
+  open func printUsage<TargetStream: TextOutputStream>(_ to: inout TargetStream) {
     /* Nil coalescing operator (??) doesn't work on closures :( */
     let format = formatOutput != nil ? formatOutput! : defaultFormat
 
@@ -429,7 +429,7 @@ public class CommandLineKit {
    *   (e.g. "Missing required option --extract") will be printed before the usage message.
    * - parameter to: An OutputStreamType to write the error message to.
    */
-  public func printUsage<TargetStream: TextOutputStream>(_ error: Error, to: inout TargetStream) {
+  open func printUsage<TargetStream: TextOutputStream>(_ error: Error, to: inout TargetStream) {
     let format = formatOutput != nil ? formatOutput! : defaultFormat
     print(format("\(error)", .error), terminator: "", to: &to)
     printUsage(&to)
@@ -441,7 +441,7 @@ public class CommandLineKit {
    * - parameter error: An error thrown from `parse()`. A description of the error
    *   (e.g. "Missing required option --extract") will be printed before the usage message.
    */
-  public func printUsage(_ error: Error) {
+  open func printUsage(_ error: Error) {
     var out = StderrOutputStream.stream
     printUsage(error, to: &out)
   }
@@ -449,7 +449,7 @@ public class CommandLineKit {
   /**
    * Prints a usage message.
    */
-  public func printUsage() {
+  open func printUsage() {
     var out = StderrOutputStream.stream
     printUsage(&out)
   }
