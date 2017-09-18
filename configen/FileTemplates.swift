@@ -40,6 +40,7 @@ protocol ImplementationTemplate: Template {
     var outputImplementationFileName: String { get }
     var implementationImportStatements: String { get }
     var implementationBody: String { get }
+    var implementationFileDirectory: String { get }
 
     var doubleImplementation: String { get }
     var integerImplementation: String { get }
@@ -62,10 +63,12 @@ struct ObjectiveCTemplate: HeaderTemplate, ImplementationTemplate {
 
     let outClassDir: String
     let outClassName: String
-
+    let outFileName: String
     //MARK: - HeaderTemplate
 
-    var outputHeaderFileName: String { return "\(outClassDir)/\(outClassName).h" }
+    var implementationFileDirectory: String { return outClassDir }
+
+    var outputHeaderFileName: String { return "\(outClassDir)/\(outFileName).h" }
 
     var headerBody: String { return "@interface \(outClassName) : NSObject \n\(bodyToken)\n@end\n" }
 
@@ -80,7 +83,7 @@ struct ObjectiveCTemplate: HeaderTemplate, ImplementationTemplate {
 
     //MARK: - ImplementationTemplate
 
-    var outputImplementationFileName: String { return "\(outClassDir)/\(outClassName).m" }
+    var outputImplementationFileName: String { return "\(outClassDir)/\(outFileName).m" }
 
     var implementationImportStatements: String { return "#import \"\(outClassName).h\"" }
 
@@ -103,26 +106,28 @@ struct SwiftTemplate: ImplementationTemplate {
 
     let outClassDir: String
     let outClassName: String
+    let outFileName: String
 
     //MARK: - ImplementationTemplate
+    var implementationFileDirectory: String { return outClassDir }
 
     var implementationImportStatements: String { return "import Foundation" }
 
-    var outputImplementationFileName: String { return "\(outClassDir)/\(outClassName).swift" }
+    var outputImplementationFileName: String { return "\(outClassDir)/\(outFileName).swift" }
 
-    var implementationBody: String { return "\n\nstruct \(outClassName) {\n\(bodyToken)\n}\n\n" }
+    var implementationBody: String { return "\nstruct \(outClassName){\n\(bodyToken)}" }
 
-    var integerImplementation: String { return "  static let \(variableNameToken): Int = \(valueToken)" }
-    var doubleImplementation: String { return "  static let \(variableNameToken): Double = \(valueToken)" }
-    var stringImplementation: String { return "  static let \(variableNameToken): String = \"\(valueToken)\"" }
-    var booleanImplementation: String { return "  static let \(variableNameToken): Bool = \(valueToken)" }
+    var integerImplementation: String { return "    static let \(variableNameToken): Int = \(valueToken)" }
+    var doubleImplementation: String { return "    static let \(variableNameToken): Double = \(valueToken)" }
+    var stringImplementation: String { return "    static let \(variableNameToken): String = \"\(valueToken)\"" }
+    var booleanImplementation: String { return "    static let \(variableNameToken): Bool = \(valueToken)" }
 
     var trueString: String { return "true" }
     var falseString: String { return "false" }
 
-    var urlImplementation: String { return "  static let \(variableNameToken): URL = URL(string: \"\(valueToken)\")!" }
-    var customImplementation: String { return "  static let \(variableNameToken): \(customTypeToken) = \(valueToken)" }
-    var customInstantiation: String { return "  static let \(variableNameToken) = \(customTypeToken)()"}
+    var urlImplementation: String { return "    static let \(variableNameToken): URL = URL(string: \"\(valueToken)\")!" }
+    var customImplementation: String { return "    static let \(variableNameToken): \(customTypeToken) = \(valueToken)" }
+    var customInstantiation: String { return "    static let \(variableNameToken) = \(customTypeToken)()"}
 }
 
 

@@ -18,17 +18,24 @@ guard let hints = parser.hints() else {
 let fileGenerator = FileGenerator(input: FileGeneratorInput(appName: parser.appName,
                                                             inputDictionary: parser.plistDictionary,
                                                             hintsDictionary: hints,
-                                                            outputClass: parser.outputClassName),
+                                                            outputClass: parser.outputClassName,
+                                                            outputFile: parser.outputClassName),
                                   options: parser)
 
 if parser.isObjC {
-  let template = ObjectiveCTemplate(outClassDir: parser.outputClassDirectory,
-                                    outClassName: parser.outputClassName)
-  fileGenerator.generateHeaderFile(withTemplate: template)
-  fileGenerator.generateImplementationFile(withTemplate: template)
+    let template = ObjectiveCTemplate(outClassDir: parser.outputClassDirectory,
+                                      outClassName: parser.outputClassName,
+                                      outFileName: parser.outputClassName)
+
+    fileGenerator.deleteFile(template.outputHeaderFileName)
+    fileGenerator.deleteFile(template.outputImplementationFileName)
+
+    fileGenerator.generateHeaderFile(withTemplate: template)
+    fileGenerator.generateImplementationFile(withTemplate: template)
 } else {
     let template = SwiftTemplate(outClassDir: parser.outputClassDirectory,
-                                 outClassName: parser.outputClassName)
-  fileGenerator.generateImplementationFile(withTemplate: template)
+                                 outClassName: parser.outputClassName,
+                                 outFileName: parser.outputClassName)
+    fileGenerator.deleteFile(template.outputImplementationFileName)
+    fileGenerator.generateSwiftFile(withTemplate: template)
 }
-

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38B5E1231F6C7180009B6E3C /* prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38B5E1221F6C7180009B6E3C /* prod.plist */; };
 		914E422B1E1FC3FF00F0AB05 /* prod-config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 914E42291E1FC3FF00F0AB05 /* prod-config.plist */; };
 		914E422C1E1FC3FF00F0AB05 /* test-config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 914E422A1E1FC3FF00F0AB05 /* test-config.plist */; };
 		914E422F1E1FC8A800F0AB05 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E422E1E1FC8A800F0AB05 /* AppEnvironment.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38B5E1221F6C7180009B6E3C /* prod.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = prod.plist; sourceTree = "<group>"; };
 		914E42291E1FC3FF00F0AB05 /* prod-config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "prod-config.plist"; sourceTree = SOURCE_ROOT; };
 		914E422A1E1FC3FF00F0AB05 /* test-config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "test-config.plist"; sourceTree = SOURCE_ROOT; };
 		914E422D1E1FC7EB00F0AB05 /* AppEnvironment.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = AppEnvironment.map; sourceTree = SOURCE_ROOT; };
@@ -47,6 +49,7 @@
 		91CF77B31E1FB178009FD04D = {
 			isa = PBXGroup;
 			children = (
+				38B5E1221F6C7180009B6E3C /* prod.plist */,
 				91CF77BE1E1FB178009FD04D /* ConfigenDemo */,
 				91CF77BD1E1FB178009FD04D /* Products */,
 			);
@@ -190,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91CF77CA1E1FB178009FD04D /* LaunchScreen.storyboard in Resources */,
+				38B5E1231F6C7180009B6E3C /* prod.plist in Resources */,
 				91CF77C71E1FB178009FD04D /* Assets.xcassets in Resources */,
 				914E422C1E1FC3FF00F0AB05 /* test-config.plist in Resources */,
 				91CF77C51E1FB178009FD04D /* Main.storyboard in Resources */,

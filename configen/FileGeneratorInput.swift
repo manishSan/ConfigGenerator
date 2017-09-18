@@ -13,4 +13,5 @@ struct FileGeneratorInput {
     let inputDictionary: Dictionary<String, AnyObject>
     let hintsDictionary: Dictionary<String, String>
     let outputClass: String
+    let outputFile: String
 }
