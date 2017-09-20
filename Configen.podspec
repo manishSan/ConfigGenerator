@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Configen'
-  s.version          = '1.4.0'
+  s.version          = '2.0'
   s.summary          = 'A command line tool to auto-generate configuration file code, for use in Xcode projects.'
 
 # This description is used to generate tags and improve search results.
