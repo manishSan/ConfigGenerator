@@ -204,6 +204,9 @@
             }
             line = template.urlImplementation
 
+        case ("URL?"):
+            line = template.urlOptionalImplementation
+
         case ("Dictionary"):
             /// create a class with key
             /// pass value as the dictionary to process

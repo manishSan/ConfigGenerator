@@ -49,6 +49,7 @@ protocol ImplementationTemplate: Template {
     var trueString: String { get }
     var falseString: String { get }
     var urlImplementation: String { get }
+    var urlOptionalImplementation: String { get }
     var customImplementation: String { get }
     var customInstantiation: String { get }
     var valueToken: String { get }
@@ -96,6 +97,7 @@ struct ObjectiveCTemplate: HeaderTemplate, ImplementationTemplate {
     var trueString: String { return "YES" }
     var falseString: String { return "NO" }
     var urlImplementation: String { return urlDeclaration + "\n{\n  return [NSURL URLWithString:@\"\(valueToken)\"];\n}" }
+    var urlOptionalImplementation: String { return urlDeclaration + "\n{\n  return [NSURL URLWithString:@\"\(valueToken)\"];\n}" }
     var customImplementation: String { return customDeclaration + "\n{\n  return \(valueToken);\n}" }
 
     var customInstantiation: String { return customClassDeclaration + "\n{\n  return [\(customTypeToken) init];\n}"  }
@@ -117,17 +119,18 @@ struct SwiftTemplate: ImplementationTemplate {
 
     var implementationBody: String { return "\nstruct \(outClassName){\n\(bodyToken)}" }
 
-    var integerImplementation: String { return "    static let \(variableNameToken): Int = \(valueToken)" }
-    var doubleImplementation: String { return "    static let \(variableNameToken): Double = \(valueToken)" }
-    var stringImplementation: String { return "    static let \(variableNameToken): String = \"\(valueToken)\"" }
-    var booleanImplementation: String { return "    static let \(variableNameToken): Bool = \(valueToken)" }
+    var integerImplementation: String { return "    let \(variableNameToken): Int = \(valueToken)" }
+    var doubleImplementation: String { return "    let \(variableNameToken): Double = \(valueToken)" }
+    var stringImplementation: String { return "    let \(variableNameToken): String = \"\(valueToken)\"" }
+    var booleanImplementation: String { return "    let \(variableNameToken): Bool = \(valueToken)" }
 
     var trueString: String { return "true" }
     var falseString: String { return "false" }
 
-    var urlImplementation: String { return "    static let \(variableNameToken): URL = URL(string: \"\(valueToken)\")!" }
-    var customImplementation: String { return "    static let \(variableNameToken): \(customTypeToken) = \(valueToken)" }
-    var customInstantiation: String { return "    static let \(variableNameToken) = \(customTypeToken)()"}
+    var urlImplementation: String { return "    let \(variableNameToken): URL = URL(string: \"\(valueToken)\")!" }
+    var urlOptionalImplementation: String { return "    let \(variableNameToken): URL? = URL(string: \"\(valueToken)\")" }
+    var customImplementation: String { return "    let \(variableNameToken): \(customTypeToken) = \(valueToken)" }
+    var customInstantiation: String { return "    let \(variableNameToken) = \(customTypeToken)()"}
 }
 
 
